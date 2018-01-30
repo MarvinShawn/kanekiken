@@ -13,6 +13,7 @@ const styles = theme => ({
   },
   gridList: {
     flexWrap: "nowrap",
+    alignItems: "center",
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)"
   }
@@ -34,6 +35,8 @@ const SJPrice = styled.div`
 `;
 
 const ItemDesc = styled.div`
+  padding: 3px;
+  font-size: 12px;
   height: 40px;
   overflow: auto;
 `;
@@ -45,19 +48,12 @@ function SingleLineGridList(props) {
       <GridList cellHeight="auto" className={classes.gridList}>
         {dataSource.map((ele, idx) => (
           <SJPaper key={idx}>
-            <img
-              alt=""
-              width="150"
-              height="150"
-              src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1870454535,3766486674&fm=27&gp=0.jpg"
-            />
+            <img alt="" width="150" height="150" src={ele.product_image_url} />
             <Typography type="subheading" gutterBottom align="center">
-              SJ6 Legend
+              {ele.product_name}
             </Typography>
-            <ItemDesc>
-              刷卡孙德阿斯达看见吗爱上了大卡刷卡机刷的卡斯柯达海南粉丝丢水电费啥事
-            </ItemDesc>
-            <SJPrice>￥ 1234.00</SJPrice>
+            <ItemDesc>{ele.product_description}</ItemDesc>
+            <SJPrice>{ele.product_price}</SJPrice>
           </SJPaper>
         ))}
       </GridList>

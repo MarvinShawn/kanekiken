@@ -3,7 +3,7 @@ import axios from "axios";
 // http://rapapi.org/mockjsdata/27196/api/
 // http://192.168.1.217:8081/api/
 const AxiosIns = axios.create({
-  baseURL: "http://192.168.1.217:89/api/",
+  baseURL: "http://120.24.152.131:8041/api/",
   timeout: 12000
 });
 
