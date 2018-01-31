@@ -1,3 +1,4 @@
 import { combineEpics } from "redux-observable";
 import { homePageEpics } from "./home";
-export const rootEpic = combineEpics(homePageEpics);
+import { categoryPageEpics } from "./category";
+export const rootEpic = combineEpics(homePageEpics, categoryPageEpics);

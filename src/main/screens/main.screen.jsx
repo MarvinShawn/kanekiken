@@ -22,6 +22,50 @@ class MainPage extends React.Component {
   state = {
     selectedIndex: 0
   };
+  tabBarInfo = [
+    {
+      title: "首页",
+      path: "/",
+      icon: SvgIcon.main
+    },
+    {
+      title: "分类",
+      path: "/category",
+      icon: SvgIcon.category
+    },
+    {
+      title: "购物车",
+      path: "/shoppingcart",
+      icon: SvgIcon.shopping_cart
+    },
+    {
+      title: "我的",
+      path: "/profile",
+      icon: SvgIcon.profile
+    }
+  ];
+
+  componentDidMount() {
+    window.onpopstate = event => {
+      const pathName = document.location.pathname;
+      switch (pathName) {
+        case "/":
+          this._select(0);
+          break;
+        case "/category":
+          this._select(1);
+          break;
+        case "/shoppingcart":
+          this._select(2);
+          break;
+        case "/profile":
+          this._select(3);
+          break;
+        default:
+          break;
+      }
+    };
+  }
 
   _select = index => this.setState({ selectedIndex: index });
 
@@ -30,41 +74,21 @@ class MainPage extends React.Component {
       <Router>
         <Container>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/category" component={CategoryPage} />
-          <Route exact path="/shoppingcart" component={ShoppingCartPage} />
-          <Route exact path="/profile" component={ProfilePage} />
+          <Route path="/category" component={CategoryPage} />
+          <Route path="/shoppingcart" component={ShoppingCartPage} />
+          <Route path="/profile" component={ProfilePage} />
           <BottomBar>
             <BottomNavigation showLabels value={this.state.selectedIndex}>
-              <BottomNavigationAction
-                label="首页"
-                component={Link}
-                to="/"
-                onClick={() => this._select(0)}
-                icon={<embed src={SvgIcon.main} width="25" height="25" />}
-              />
-              <BottomNavigationAction
-                label="分类"
-                component={Link}
-                to="/category"
-                onClick={() => this._select(1)}
-                icon={<embed src={SvgIcon.category} width="25" height="25" />}
-              />
-              <BottomNavigationAction
-                label="购物车"
-                component={Link}
-                to="/shoppingcart"
-                onClick={() => this._select(2)}
-                icon={
-                  <embed src={SvgIcon.shopping_cart} width="25" height="25" />
-                }
-              />
-              <BottomNavigationAction
-                label="我的"
-                component={Link}
-                to="/profile"
-                onClick={() => this._select(3)}
-                icon={<embed src={SvgIcon.profile} width="25" height="25" />}
-              />
+              {this.tabBarInfo.map((ele, idx) => (
+                <BottomNavigationAction
+                  key={ele.path}
+                  label={ele.title}
+                  component={Link}
+                  to={ele.path}
+                  onClick={() => this._select(idx)}
+                  icon={<embed src={ele.icon} width="25" height="25" />}
+                />
+              ))}
             </BottomNavigation>
           </BottomBar>
         </Container>

@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import {
   GridList,
   GridListTile,
   GridListTileBar,
   ListSubheader
 } from "material-ui";
+import { fetchCategory } from "../category.actions";
 
 const Container = styled.div`
   display: flex;
@@ -17,40 +20,25 @@ const Container = styled.div`
   height: ${window.innerHeight - 56}px;
 `;
 
-const mockData = [
-  {
-    icon:
-      "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1870454535,3766486674&fm=27&gp=0.jpg",
-    title: "通用配件"
-  },
-  {
-    icon:
-      "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1870454535,3766486674&fm=27&gp=0.jpg",
-    title: "SJ360 系列"
-  },
-  {
-    icon:
-      "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1870454535,3766486674&fm=27&gp=0.jpg",
-    title: "SJ6 系列"
-  },
-  {
-    icon:
-      "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1870454535,3766486674&fm=27&gp=0.jpg",
-    title: "SJ8 系列"
-  },
-  {
-    icon:
-      "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1870454535,3766486674&fm=27&gp=0.jpg",
-    title: "5000X 系列"
-  },
-  {
-    icon:
-      "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1870454535,3766486674&fm=27&gp=0.jpg",
-    title: "4000 系列"
-  }
-];
+const SJImgContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
+@connect(
+  state => state.categoryPageReducer,
+  dispatch => bindActionCreators({ fetchCategory }, dispatch)
+)
 export class CategoryPage extends React.Component {
+  props: {
+    fetchCategory: Function,
+    categoryList: Array
+  };
+
+  componentDidMount() {
+    this.props.fetchCategory();
+  }
   render() {
     return (
       <Container>
@@ -58,10 +46,18 @@ export class CategoryPage extends React.Component {
           <GridListTile key="ListSubheader" cols={2} style={{ height: "auto" }}>
             <ListSubheader component="div">全部分类</ListSubheader>
           </GridListTile>
-          {mockData.map(tile => (
-            <GridListTile key={tile.title}>
-              <img src={tile.icon} alt={tile.title} />
-              <GridListTileBar title={tile.title} />
+          {this.props.categoryList.map(tile => (
+            <GridListTile key={tile.category_id}>
+              <SJImgContainer>
+                <img
+                  width={120}
+                  height={120}
+                  src={tile.category_image_url}
+                  alt={tile.category_name}
+                />
+              </SJImgContainer>
+
+              <GridListTileBar title={tile.category_name} />
             </GridListTile>
           ))}
         </GridList>
