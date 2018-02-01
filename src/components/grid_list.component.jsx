@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { GridList, Paper, withStyles, Typography, colors } from "material-ui";
+import { GridList, Paper, withStyles, colors } from "material-ui";
 
 const styles = theme => ({
   root: {
@@ -25,6 +25,7 @@ const SJPaper = styled(Paper)`
   justify-content: center;
   align-items: center;
   padding: 5px;
+  margin-left: 8px;
 `;
 
 const SJPrice = styled.div`
@@ -34,7 +35,7 @@ const SJPrice = styled.div`
   margin-bottom: 10px;
 `;
 
-const ItemDesc = styled.div`
+const ItemTitle = styled.div`
   padding: 3px;
   font-size: 12px;
   height: 40px;
@@ -48,11 +49,13 @@ function SingleLineGridList(props) {
       <GridList cellHeight="auto" className={classes.gridList}>
         {dataSource.map((ele, idx) => (
           <SJPaper key={idx}>
-            <img alt="" width="150" height="150" src={ele.product_image_url} />
-            <Typography type="subheading" gutterBottom align="center">
-              {ele.product_name}
-            </Typography>
-            <ItemDesc>{ele.product_description}</ItemDesc>
+            <img
+              alt={ele.product_name}
+              width="150"
+              height="150"
+              src={ele.product_image_url}
+            />
+            <ItemTitle>{ele.product_name}</ItemTitle>
             <SJPrice>{ele.product_price}</SJPrice>
           </SJPaper>
         ))}

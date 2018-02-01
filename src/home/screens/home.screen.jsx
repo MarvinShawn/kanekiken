@@ -10,6 +10,7 @@ import {
 } from "material-ui";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import * as SvgIcon from "../../assets";
 import { fetchProductList, fetchBanner } from "../home.actions";
 import { Banner, SJChipsArray, SJGridList } from "../../components";
@@ -49,6 +50,7 @@ const ItemHeader = styled(Paper)`
 `;
 const CategoryTitle = styled.span`
   font-size: bold;
+  color: #000;
 `;
 
 // 旗舰产品
@@ -93,7 +95,10 @@ const CategoryItem = props => {
   return (
     <CategoryContainer>
       {category ? (
-        <ItemHeader>
+        <ItemHeader
+          component={Link}
+          to={`category/${category.catetgory_resource_id}`}
+        >
           <CategoryTitle>{category.catetgory_resource_name}</CategoryTitle>
           <embed src={SvgIcon.arrow_right} width="18" height="18" />
         </ItemHeader>
@@ -125,7 +130,6 @@ class HomePageScreen extends React.Component {
     this.props.fetchProductList();
     this.props.fetchBanner();
   }
-
   render() {
     const { productList, bannerList } = this.props;
     return (

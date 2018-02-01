@@ -2,12 +2,9 @@ import { handleActions } from "redux-actions";
 import {
   GET_CATEGORY,
   GET_CATEGORY_ERROR,
-  // FETCH_SINGLE_CATEGORY_MORE_PRODUCTS,
-  GET_SINGLE_CATEGORY_PRODUCTS,
-  GET_SINGLE_CATEGORY_MORE_PRODUCTS,
-  GET_SINGLE_CATEGORY_PRODUCTS_ERROR,
-  GET_SINGLE_CATEGORY_MORE_PRODUCTS_ERROR,
-  REINITAIL_SINGLE_CATEGORY_PRODUCTS
+  GET_CATEGORY_PRODUCTS,
+  GET_CATEGORY_PRODUCTS_ERROR,
+  REINITAIL_CATEGORY_PRODUCTS
 } from "./category.constants";
 
 const intialState = {
@@ -38,27 +35,16 @@ export const categoryPageReducer = handleActions(
 
 export const singleCategoryProductsReducer = handleActions(
   {
-    [GET_SINGLE_CATEGORY_PRODUCTS]: (state, { payload }) => ({
-      ...state,
-      productList: payload.items,
-      totalPage: payload.total_page
-    }),
-
-    [GET_SINGLE_CATEGORY_MORE_PRODUCTS]: (state, { payload }) => ({
+    [GET_CATEGORY_PRODUCTS]: (state, { payload }) => ({
       ...state,
       productList: state.productList.concat(payload.items),
       totalPage: payload.total_page
     }),
-
-    [GET_SINGLE_CATEGORY_PRODUCTS_ERROR]: (state, { payload }) => ({
+    [GET_CATEGORY_PRODUCTS_ERROR]: (state, { payload }) => ({
       ...state,
       productListError: payload
     }),
-    [GET_SINGLE_CATEGORY_MORE_PRODUCTS_ERROR]: (state, { payload }) => ({
-      ...state,
-      productListError: payload
-    }),
-    [REINITAIL_SINGLE_CATEGORY_PRODUCTS]: state => ({
+    [REINITAIL_CATEGORY_PRODUCTS]: state => ({
       ...state,
       productList: [],
       productListError: "",

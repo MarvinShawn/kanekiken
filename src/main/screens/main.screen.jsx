@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import { BottomNavigation, BottomNavigationAction, Paper } from "material-ui";
 import * as SvgIcon from "../../assets";
 import { HomePage } from "../../home";
-import { CategoryPage } from "../../category";
+import { CategoryPage, CategoryProductsPage } from "../../category";
 import { ShoppingCartPage } from "../../shoppingcart";
 import { ProfilePage } from "../../profile";
 
@@ -22,10 +22,11 @@ class MainPage extends React.Component {
   state = {
     selectedIndex: 0
   };
+  showBarPaths = ["/", "/home", "/category", "/shoppingcart", "/profile"];
   tabBarInfo = [
     {
       title: "首页",
-      path: "/",
+      path: "/home",
       icon: SvgIcon.main
     },
     {
@@ -50,6 +51,7 @@ class MainPage extends React.Component {
       const pathName = document.location.pathname;
       switch (pathName) {
         case "/":
+        case "/home":
           this._select(0);
           break;
         case "/category":
@@ -70,13 +72,17 @@ class MainPage extends React.Component {
   _select = index => this.setState({ selectedIndex: index });
 
   render() {
+    const isShowbar = !!this.showBarPaths.find(
+      ele => ele === window.location.pathname
+    );
     return (
-      <Router>
-        <Container>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/category" component={CategoryPage} />
-          <Route path="/shoppingcart" component={ShoppingCartPage} />
-          <Route path="/profile" component={ProfilePage} />
+      <Container>
+        <Route exact path="/(home)?" component={HomePage} />
+        <Route exact path="/category" component={CategoryPage} />
+        <Route path="/shoppingcart" component={ShoppingCartPage} />
+        <Route path="/profile" component={ProfilePage} />
+        <Route path="/category/:categoryid" component={CategoryProductsPage} />
+        {isShowbar ? (
           <BottomBar>
             <BottomNavigation showLabels value={this.state.selectedIndex}>
               {this.tabBarInfo.map((ele, idx) => (
@@ -91,8 +97,8 @@ class MainPage extends React.Component {
               ))}
             </BottomNavigation>
           </BottomBar>
-        </Container>
-      </Router>
+        ) : null}
+      </Container>
     );
   }
 }

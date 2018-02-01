@@ -13,8 +13,8 @@ const fetchCategoryEpic = action$ =>
   );
 
 // 某个类型的商品
-const fetchSingleCategoryProductsEpic = action$ =>
-  action$.ofType(ActionTypes.FETCH_SINGLE_CATEGORY_PRODUCTS).switchMap(action =>
+const fetchCategoryProductsEpic = action$ =>
+  action$.ofType(ActionTypes.FETCH_CATEGORY_PRODUCTS).switchMap(action =>
     Observable.fromPromise(
       ApiManager.FetchSingleCategoryProduct(
         action.payload.id,
@@ -25,45 +25,21 @@ const fetchSingleCategoryProductsEpic = action$ =>
         res =>
           res && res.data
             ? res.data
-            : { items: [], total_page: 0, total_count: 0, page: 0, per_page: 0 }
+            : {
+                items: [],
+                total_page: 0,
+                total_count: 0,
+                page: 0,
+                per_page: 0
+              }
       )
-      .flatMap(res => Observable.of(Actions.getSingleCateProducts(res)))
+      .flatMap(res => Observable.of(Actions.getCategoryProducts(res)))
       .catch(error =>
-        Observable.of(Actions.getSingleCateProductsError(error.message))
+        Observable.of(Actions.getCategoryProductsError(error.message))
       )
   );
 
-// 某个类型的更多商品
-const fetchSingleCategoryMoreProductsEpic = action$ =>
-  action$
-    .ofType(ActionTypes.FETCH_SINGLE_CATEGORY_MORE_PRODUCTS)
-    .switchMap(action =>
-      Observable.fromPromise(
-        ApiManager.FetchSingleCategoryProduct(
-          action.payload.id,
-          action.payload.page
-        )
-      )
-        .map(
-          res =>
-            res && res.data
-              ? res.data
-              : {
-                  items: [],
-                  total_page: 0,
-                  total_count: 0,
-                  page: 0,
-                  per_page: 0
-                }
-        )
-        .flatMap(res => Observable.of(Actions.getSingleCateMoreProducts(res)))
-        .catch(error =>
-          Observable.of(Actions.getSingleCateMoreProductsError(error.message))
-        )
-    );
-
 export const categoryPageEpics = combineEpics(
   fetchCategoryEpic,
-  fetchSingleCategoryProductsEpic,
-  fetchSingleCategoryMoreProductsEpic
+  fetchCategoryProductsEpic
 );
