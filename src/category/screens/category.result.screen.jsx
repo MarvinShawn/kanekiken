@@ -71,8 +71,8 @@ export class CategoryProductsPage extends React.Component {
   render() {
     return (
       <Container>
-        {this.props.productList.map(ele => (
-          <ItemContainer component="div" key={ele.product_package_id}>
+        {this.props.productList.map((ele,idx) => (
+          <ItemContainer component="div" key={idx}>
             <ImageContainer>
               <img
                 src={ele.image_url}
