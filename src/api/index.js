@@ -141,7 +141,7 @@ export const FetchSingleCategoryProduct = (category_id: Number, page: Number) =>
       categoryresourceid: category_id,
       AreaCode: global.currentAreaCode,
       page,
-      pagesize: 10
+      pagesize: 3
     }
     // headers: { 'X-SJCAM-Secret': await getSecretParam() },
   });

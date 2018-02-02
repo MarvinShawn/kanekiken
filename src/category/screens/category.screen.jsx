@@ -17,7 +17,7 @@ const Container = styled.div`
   overflow: hidden;
   background-color: #fff;
   width: 100%;
-  height: ${window.innerHeight - 56}px;
+  margin-bottom: 56px;
 `;
 
 const SJImgContainer = styled.div`

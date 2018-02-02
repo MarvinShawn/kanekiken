@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 const SJCarousel = styled(Carousel)`
   flex: 0;
   width: 100%;
-  height: 150px;
   background-color: #ffffff;
 `;
 
@@ -15,7 +14,7 @@ const ImgContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 150px;
+  height: 200px;
   background-color: #ffffff;
 `;
 
@@ -31,7 +30,7 @@ export const Banner = props => {
             clickAction(idx);
           }}
         >
-          <img src={ele} width={150} height={150} alt="" />
+          <img src={ele} width={200} height={200} alt="" />
         </ImgContainer>
       ))}
     </SJCarousel>

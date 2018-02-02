@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { Route, Link } from "react-router-dom";
-import { BottomNavigation, BottomNavigationAction, Paper } from "material-ui";
-import * as SvgIcon from "../../assets";
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Paper,
+} from "material-ui";
+import * as Svg from "../../assets";
 import { HomePage } from "../../home";
 import { CategoryPage, CategoryProductsPage } from "../../category";
 import { ShoppingCartPage } from "../../shoppingcart";
@@ -16,6 +20,7 @@ const BottomBar = styled(Paper)`
   position: fixed;
   bottom: 0px;
   width: 100%;
+  overflow: hidden;
 `;
 
 class MainPage extends React.Component {
@@ -27,22 +32,22 @@ class MainPage extends React.Component {
     {
       title: "首页",
       path: "/home",
-      icon: SvgIcon.main
+      icon: Svg.main
     },
     {
       title: "分类",
       path: "/category",
-      icon: SvgIcon.category
+      icon: Svg.category
     },
     {
       title: "购物车",
       path: "/shoppingcart",
-      icon: SvgIcon.shopping_cart
+      icon: Svg.shopping_cart
     },
     {
       title: "我的",
       path: "/profile",
-      icon: SvgIcon.profile
+      icon: Svg.profile
     }
   ];
 
@@ -82,7 +87,8 @@ class MainPage extends React.Component {
         <Route path="/shoppingcart" component={ShoppingCartPage} />
         <Route path="/profile" component={ProfilePage} />
         <Route path="/category/:categoryid" component={CategoryProductsPage} />
-        {isShowbar ? (
+        
+       {isShowbar ? (
           <BottomBar>
             <BottomNavigation showLabels value={this.state.selectedIndex}>
               {this.tabBarInfo.map((ele, idx) => (
@@ -92,12 +98,13 @@ class MainPage extends React.Component {
                   component={Link}
                   to={ele.path}
                   onClick={() => this._select(idx)}
-                  icon={<embed src={ele.icon} width="25" height="25" />}
+                  icon={<embed src={ele.icon} width="23" height="23"/>}
                 />
               ))}
             </BottomNavigation>
           </BottomBar>
         ) : null}
+
       </Container>
     );
   }

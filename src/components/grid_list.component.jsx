@@ -24,7 +24,7 @@ const SJPaper = styled(Paper)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 5px;
+  padding: 5px 5px 5px 5px;
   margin-left: 8px;
 `;
 
