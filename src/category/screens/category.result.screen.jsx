@@ -32,7 +32,7 @@ const ItemContainer = styled(Paper)`
 `;
 
 const ImageContainer = styled.div`
-  flex: 0;
+  flex: 1;
   display: flex;
   padding: 10px;
   justify-content: center;
@@ -40,7 +40,7 @@ const ImageContainer = styled.div`
 `;
 
 const InfoContainer = styled.div`
-  flex: 1;
+  flex: 2;
   display: flex;
   align-items: center;
   flex-direction: column;
