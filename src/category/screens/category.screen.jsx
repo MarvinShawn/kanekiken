@@ -2,12 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import {
-  GridList,
-  GridListTile,
-  GridListTileBar,
-  ListSubheader
-} from "material-ui";
+import { Link } from "react-router-dom";
+import { GridList, GridListTile, ListSubheader, Button } from "material-ui";
 import { fetchCategory } from "../category.actions";
 
 const Container = styled.div`
@@ -18,6 +14,12 @@ const Container = styled.div`
   background-color: #fff;
   width: 100%;
   margin-bottom: 56px;
+`;
+
+const SJInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const SJImgContainer = styled.div`
@@ -42,23 +44,35 @@ export class CategoryPage extends React.Component {
   render() {
     return (
       <Container>
-        <GridList>
-          <GridListTile key="ListSubheader" cols={2} style={{ height: "auto" }}>
+        <GridList cols={2.0} spacing={5}>
+          <GridListTile
+            key="ListSubheader"
+            cols={2.0}
+            style={{ height: "auto" }}
+          >
             <ListSubheader component="div">全部分类</ListSubheader>
           </GridListTile>
           {this.props.categoryList.map(tile => (
-            <GridListTile key={tile.category_id}>
-              <SJImgContainer>
-                <img
-                  width={120}
-                  height={120}
-                  src={tile.category_image_url}
-                  alt={tile.category_name}
-                />
-              </SJImgContainer>
-
-              <GridListTileBar title={tile.category_name} />
-            </GridListTile>
+            <Button
+              color="primary"
+              key={tile.category_id}
+              component={Link}
+              to={`category/${tile.category_resource_id}`}
+            >
+              <SJInfoContainer>
+                <SJImgContainer>
+                  <img
+                    width={120}
+                    height={120}
+                    src={tile.category_image_url}
+                    alt={tile.category_name}
+                  />
+                </SJImgContainer>
+                <p style={{ color: "#000", fontWeight: "bolder" }}>
+                  {tile.category_name}
+                </p>
+              </SJInfoContainer>
+            </Button>
           ))}
         </GridList>
       </Container>
